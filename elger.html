@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+
+    <style>
+        /* CSS Styling - Combined from style.css */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif; /* Using Poppins as a similar font */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #1a1a1a, #000000); /* Dark background gradient */
+            color: #fff;
+            overflow: hidden; /* Hide overflow for the background elements */
+            position: relative;
+        }
+
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Subtle dark overlay for the background */
+            z-index: 0;
+        }
+
+        .container {
+            background: rgba(45, 45, 45, 0.7); /* Translucent dark background for the card */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            border-radius: 25px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+            position: relative; /* For z-index to work with background text */
+            z-index: 1; /* Ensure container is above the background overlay */
+            overflow: hidden; /* To contain the background text */
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .background-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 6em; /* Adjust as needed */
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.08); /* Very faint white */
+            pointer-events: none; /* Allows clicks to pass through */
+            z-index: -1; /* Behind the form elements */
+            white-space: nowrap; /* Keep "STOCK KNOWLEDGE" on one line if possible */
+            user-select: none; /* Prevent selection */
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group input {
+            width: calc(100% - 40px); /* Adjust for padding */
+            padding: 15px 20px;
+            border: none;
+            border-radius: 15px; /* More rounded corners */
+            background: rgba(40, 160, 150, 0.8); /* Teal-like color */
+            color: #fff;
+            font-size: 1em;
+            outline: none;
+            transition: background 0.3s ease;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-group input:focus {
+            background: rgba(50, 180, 170, 0.9); /* Slightly brighter on focus */
+        }
+
+        .password-group {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .password-group input {
+            flex-grow: 1; /* Allow input to take available space */
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 20px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1em;
+            z-index: 2; /* Ensure icon is above input */
+        }
+
+        .toggle-password:hover {
+            color: #fff;
+        }
+
+        .forgot-password {
+            text-align: right;
+            font-size: 0.9em;
+            margin-top: -10px; /* Adjust spacing */
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .get-started-btn {
+            background: #00bf8f; /* Greenish color */
+            color: #fff;
+            margin-top: 30px;
+            margin-bottom: 25px;
+        }
+
+        .get-started-btn:hover {
+            background: #00a87f;
+            transform: translateY(-2px);
+        }
+
+        .separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .separator .line {
+            flex-grow: 1;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.3);
+            margin: 0 10px;
+        }
+
+        .google-btn {
+            background: #ffffff;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .google-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .google-logo {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .login-prompt {
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .login-link {
+            color: #00bf8f; /* Match the Get Started button color */
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 500px) {
+            .container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .background-text {
+                font-size: 3em; /* Smaller on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="container">
+        <div class="header">
+            <h1>Create Account</h1>
+        </div>
+        <div class="background-text">STOCK KNOWLEDGE</div>
+
+        <form id="createAccountForm">
+            <div class="input-group">
+                <input type="text" id="lastName" placeholder="Last Name" required>
+            </div>
+            <div class="input-group">
+                <input type="email" id="emailPhone" placeholder="Email/Phone" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="firstName" placeholder="First Name" required>
+            </div>
+            <div class="input-group password-group">
+                <input type="password" id="password" placeholder="Password" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility()">
+                    <i class="fas fa-eye"></i>
+                </span>
+            </div>
+            <p class="forgot-password">Forgot password?</p>
+
+            <button type="submit" class="btn get-started-btn">Get Started</button>
+        </form>
+
+        <div class="separator">
+            <span class="line"></span>
+            <span>or</span>
+            <span class="line"></span>
+        </div>
+
+        <button class="btn google-btn">
+            <img src="https://www.gstatic.com/images/branding/product/2x/google_fonts_24dp.png" alt="Google Logo" class="google-logo">
+            Continue with Google
+        </button>
+
+        <p class="login-prompt">Have an account? <a href="#" class="login-link">Log in</a></p>
+    </div>
+
+    <script>
+        // JavaScript Functionality - Combined from script.js
+        document.addEventListener('DOMContentLoaded', () => {
+            // Password visibility toggle
+            window.togglePasswordVisibility = function() {
+                const passwordField = document.getElementById('password');
+                const toggleIcon = document.querySelector('.toggle-password i');
+
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    toggleIcon.classList.remove('fa-eye');
+                    toggleIcon.classList.add('fa-eye-slash');
+                } else {
+                    passwordField.type = 'password';
+                    toggleIcon.classList.remove('fa-eye-slash');
+                    toggleIcon.classList.add('fa-eye');
+                }
+            };
+
+            // Form submission (basic example, typically sent to a backend)
+            const createAccountForm = document.getElementById('createAccountForm');
+            createAccountForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent default form submission
+
+                const lastName = document.getElementById('lastName').value;
+                const emailPhone = document.getElementById('emailPhone').value;
+                const firstName = document.getElementById('firstName').value;
+                const password = document.getElementById('password').value;
+
+                // Basic validation (you'd add more comprehensive validation here)
+                if (!lastName || !emailPhone || !firstName || !password) {
+                    alert('Please fill in all fields.');
+                    return;
+                }
+
+                // In a real application, you would send this data to your server
+                console.log('Account creation attempted with:');
+                console.log('First Name:', firstName);
+                console.log('Last Name:', lastName);
+                console.log('Email/Phone:', emailPhone);
+                console.log('Password:', password);
+
+                alert('Account creation simulated! Check console for data.');
+                // Here you would typically make an AJAX request (fetch or XMLHttpRequest)
+                // to your backend API to create the user account.
+            });
+
+            // Google login button (placeholder - requires Google OAuth setup)
+            const googleBtn = document.querySelector('.google-btn');
+            googleBtn.addEventListener('click', () => {
+                alert('Google Sign-In initiated. (Requires Google OAuth configuration)');
+                // In a real application, you would redirect to Google's OAuth consent screen
+                // or trigger a Google Identity Services client-side flow.
+            });
+
+            // Login link
+            const loginLink = document.querySelector('.login-link');
+            loginLink.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default link behavior
+                alert('Navigating to login page. (Not implemented in this example)');
+                // In a real application, you would change window.location.href
+                // or route within your single-page application.
+            });
+
+            // Forgot password link
+            const forgotPasswordLink = document.querySelector('.forgot-password');
+            forgotPasswordLink.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default link behavior
+                alert('Forgot Password flow initiated. (Not implemented in this example)');
+            });
+        });
+    </script>
+</body>
+</html>
